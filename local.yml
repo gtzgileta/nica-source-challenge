@@ -1,0 +1,45 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    expose:
+      - 5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: nica-source
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3000:80"
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./server"
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      - PGUSER=user
+      - PGHOST=postgres
+      - PGDATABASE=nica-source
+      - PGPASSWORD=password
+      - PGPORT=5432
+      - ACCESS_TOKEN_SECRET=b70ea95f5504a988d9c3319571476afa4012ae90b1d58e8da17a7ff1812e696d
+      - REFRESH_TOKEN_SECRET=e39a3ccdd8dd4ee5c6936878c06436d445d6f60014fbbd3a1c06124c224a3f5e
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app

@@ -1,0 +1,14 @@
+.vscode
+# local.yml
+
+# dependencies
+/client/node_modules
+/server/node_modules
+
+# env
+/client/.env
+/server/.env
+
+# production
+/client/build
+/server/build

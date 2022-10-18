@@ -1,0 +1,20 @@
+#footer {
+  padding: 80px 0 0 0;
+  font-size: 14px;
+  position: relative;
+  .bottom {
+    text-align: center;
+    margin-top: 60px;
+    padding: 50px 0;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  #footer {
+    padding-top: 50px;
+  }
+  #footer .bottom {
+    margin-top: 30px;
+  }
+}
