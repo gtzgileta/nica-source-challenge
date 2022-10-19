@@ -1,5 +1,8 @@
 # Nica Source Code Challenge
 
+Developed by Oscar Daniel Gutierrez Gileta.
+> gtzgileta[at]gmail.com
+
 ## Run project
 
 First run Docker and build with:
