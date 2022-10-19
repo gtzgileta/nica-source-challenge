@@ -15,6 +15,11 @@ Open api cli and run:
 npm run seed
 ```
 
+Open:
+```
+http://localhost:3000/
+```
+
 ## Available features
 
 > Currently not all features are available due to time availability, but on this project is possible to:
