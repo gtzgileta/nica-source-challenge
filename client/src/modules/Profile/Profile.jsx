@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import "./index.scss";
 
 const Profile = ({ profile, backgroundImage }) => (
@@ -11,6 +13,7 @@ const Profile = ({ profile, backgroundImage }) => (
           <div className="h4 before">Profile</div>
           <h1>{ `${profile?.first_name} ${profile?.last_name}` || '' }</h1>
           <h2>{ profile?.role || '' }</h2>
+          <Button variant="contained" endIcon={<AddIcon />}>Follow profile</Button>
         </div>
       </div>
     </div>

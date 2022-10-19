@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Profile from './Profile';
 import { loadProfile } from '../../store/user';
 
 const ProfileContainer = () => {
-    const [profile, setProfile] = useState(null);
     const dispatch = useDispatch();
     const { id } = useParams();
+    const profile = useSelector((state) => state.User.profile);
 
-    dispatch(loadProfile(id, (result) => {
-      setProfile(result)
-    }));
+    useEffect(() => {
+      dispatch(loadProfile(id));
+    }, []);
 
     const backgroundImage = `url(https://picsum.photos/800)`;
 
