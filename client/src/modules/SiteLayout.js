@@ -3,6 +3,7 @@ import { Route, withRouter, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import AuthVerify from "../components/AuthVerify/AuthVerify";
 import { loadUser } from '../store/auth';
 import { isLoggedIn } from '../utils/auth-util';
 import "./global.scss";
@@ -26,6 +27,7 @@ const LayoutRoute = ({ component: Component, authRoute, ...rest }) => {
       <Header />
       <Component {...rest} />
       <Footer />
+      <AuthVerify/>
     </React.Fragment>
   );
 

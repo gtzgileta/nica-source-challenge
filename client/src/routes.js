@@ -6,6 +6,7 @@ import LayoutRoute from "./modules/SiteLayout";
 import SignIn from "./modules/SignIn";
 import SignUp from "./modules/SignUp";
 import Videos from "./modules/Videos";
+import NewVideo from "./modules/Videos/components/NewVideo";
 import Profile from "./modules/Profile";
 
 const browserHistory = createBrowserHistory();
@@ -19,6 +20,7 @@ export const Routes = () => (
       {/* ADMIN ROUTES */ }
       <LayoutRoute exact path="/videos" component={ Videos } authRoute />
       <LayoutRoute exact path="/profile/:id" component={ Profile } authRoute />
+      <LayoutRoute exact path="/videos/upload" component={ NewVideo } authRoute />
       {/* <LayoutRoute exact path="/videos/:id" component={ VideoDetail } authRoute /> */}
     </Switch>
   </Router>

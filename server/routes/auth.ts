@@ -1,7 +1,8 @@
 import express, { Request, Response, Router } from 'express';
 import jwt from 'jsonwebtoken';
-import pool from '../db';
 import bcrypt from 'bcryptjs';
+import pool from '../db';
+import { User } from '../db/models/User';
 import { RegisterData, LoginData } from './auth.types';
 import { jwtTokens } from '../utils/jwt-helpers';
 
@@ -9,16 +10,19 @@ const router: Router = express.Router();
 
 router.post('/register', async (req: Request, res: Response) => {
   try {
-    const { first_name, last_name, email, password }: RegisterData = req.body;
+    const { first_name, last_name, email, password, role }: RegisterData = req.body;
     let hashedPassword: string = await bcrypt.hash(password, 10);
 
-    const query = `
-        INSERT INTO users (first_name, last_name, user_email, user_password, created_at) 
-        VALUES ('${first_name}', '${last_name}', '${email}', '${hashedPassword}', '2022-10-17 22:30:13.188')`;
+    const newUser = await User.create({
+        first_name,
+        last_name,
+        user_email: email,
+        user_password: hashedPassword,
+        user_role: role,
+        createdAt: '2022-10-17 22:30:13.188'
+    });
 
-    const data = await pool.query(query);
-
-    res.json({ status: 'success', data });
+    res.json({ status: 'success', data: newUser });
   } catch (error) {
     res.status(401).json({error: 'There was an error with the register process.'});
   }
@@ -26,14 +30,13 @@ router.post('/register', async (req: Request, res: Response) => {
 
 router.post('/login', async (req: Request, res: Response) => {
   try {
-    // console.log(req.cookies, req.get('origin'));
     const { email, password }: LoginData = req.body;
     const users = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
     if (users.rows.length === 0) return res.status(401).json({error:"Email is incorrect"});
-    //PASSWORD CHECK
+    // PASSWORD CHECK
     const validPassword: boolean = await bcrypt.compare(password, users.rows[0].user_password);
     if (!validPassword) return res.status(401).json({error: "Incorrect password"});
-    //JWT
+    // JWT
     const tokens = jwtTokens(users.rows[0]);//Gets access and refresh tokens
     res.cookie('refresh_token', tokens.refreshToken, { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ user: users.rows, ...tokens });

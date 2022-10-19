@@ -13,6 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { logout } from '../../store/auth';
+import { ROLE_TEACHER } from "../../utils/constants";
 import Logo from '../Logo';
 import styles from './Header.module.scss'
 
@@ -21,7 +22,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
 
-  console.log('test', user)
   return <AppBar id={styles.nav} position="relative" color="transparent">
   <Container maxWidth="xl">
     <Toolbar disableGutters>
@@ -42,6 +42,7 @@ const Header = () => {
           sx={{
             display: { xs: 'block', md: 'none' },
           }}
+          open={false}
         >
           <MenuItem>
             <Typography textAlign="center">Pagina 1</Typography>
@@ -52,7 +53,10 @@ const Header = () => {
       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           <Button className={styles.button}>Home</Button>
           <Button onClick={() => history.push('/videos')} className={styles.button}>Videos</Button>
-          <Button onClick={() => history.push('/profile/abc123')} className={styles.button}>My Profile</Button>
+          <Button onClick={() => history.push(`/profile/${ user?.id || '1' }`)} className={styles.button}>My Profile</Button>
+          { user?.user_role === ROLE_TEACHER &&
+            <Button onClick={() => history.push('/videos/upload')} className={styles.button}>UPLOAD VIDEO</Button>
+          }
           <Button onClick={() => dispatch(logout(() => {
             history.push("/");
           }))} className={styles.button}>Logout</Button>

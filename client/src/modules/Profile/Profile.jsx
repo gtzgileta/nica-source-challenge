@@ -1,9 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-const Profile = () => {
-  const backgroundImage = `url(https://picsum.photos/800)`;
-  return (
+const Profile = ({ profile, backgroundImage }) => (
     <div className="hero">
       <div className="container">
         <div className="col-md-6">
@@ -11,12 +9,11 @@ const Profile = () => {
         </div>
         <div className="col-md-6">
           <div className="h4 before">Profile</div>
-          <h1>Daniel Gutiérrez Gileta</h1>
-          <h2>Creator</h2>
+          <h1>{ `${profile?.first_name} ${profile?.last_name}` || '' }</h1>
+          <h2>{ profile?.role || '' }</h2>
         </div>
       </div>
     </div>
   );
-};
 
 export default Profile;

@@ -130,9 +130,13 @@ export const register = (values, callback) => async (dispatch) => {
                 error: payload,
                 loading: false,
             };
-            break;
           case AUTH_ERROR:
           case USER_LOGIN_FAIL:
+            return {
+              ...state,
+              error: 'Failed to login, please check your email or password.',
+              loading: false,
+          };
           case USER_LOGOUT:
               delete axios.defaults.headers.common['Authorization'];
               return {

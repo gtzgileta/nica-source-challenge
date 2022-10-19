@@ -6,12 +6,13 @@ import {
   Grid, 
   Box, 
   Alert, 
-  Container
+  Container,
+  MenuItem
 } from '@mui/material';
 import Logo from "../../components/Logo";
 import styles from './SignUp.module.scss';
 
-const SignUpLayout = ({ handleSubmit, formObj, setName, setLastName, setEmail, setPassword, error }) => 
+const SignUpLayout = ({ handleSubmit, formObj, setName, setLastName, setEmail, setPassword, error, setRole }) => 
   <Container className={styles.container} component="main" maxWidth="xs">
       <Logo width="100%" height="100px" />
       <Box component="form" noValidate sx={{ mt: 3 }}>
@@ -65,6 +66,20 @@ const SignUpLayout = ({ handleSubmit, formObj, setName, setLastName, setEmail, s
                 value={formObj.password}
                 onChange={ e => setPassword(e.target.value) }
               />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="role"
+                label="Role"
+                select
+                value={formObj.role}
+                onChange={ e => setRole(e.target.value) }
+              >
+                <MenuItem value="student">Student</MenuItem>
+                <MenuItem value="teacher">Teacher</MenuItem>
+              </TextField>
             </Grid>
           </Grid>
           <Button

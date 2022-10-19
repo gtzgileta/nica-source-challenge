@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
   last_name varchar(100) NOT NULL,
   user_email varchar(100) NOT NULL,
   user_password varchar(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL
+  user_role varchar(40) NOT NULL,
+  createdAt TIMESTAMP DEFAULT NULL,
+  updatedAt TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS videos (
@@ -18,7 +20,9 @@ CREATE TABLE IF NOT EXISTS videos (
   creation_date TIMESTAMP NOT NULL,
   video_url varchar(100) NOT NULL,
   img_src varchar(255) NOT NULL,
-  published BOOLEAN NOT NULL DEFAULT false
+  published BOOLEAN NOT NULL DEFAULT false,
+  createdAt TIMESTAMP DEFAULT NULL,
+  updatedAt TIMESTAMP DEFAULT NULL
 );
 
 -- Seeds

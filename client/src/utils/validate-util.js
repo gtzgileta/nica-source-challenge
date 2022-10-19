@@ -5,7 +5,6 @@ const invalidStr = (name) => `An invalid ${name} was provided, please provide a 
 const passwordStr = () => 'Please enter a longer password.';
 
 export const validateSignUp = (formValues) => {
-    console.log('test formValues', formValues)
     window.formValues = formValues
     if(!formValues.first_name) {
         return requiredStr('First name');
@@ -47,6 +46,21 @@ export const validateLogin = (formValues) => {
     }
     if(formValues.password.length <= 3) {
         return passwordStr();
+    }
+
+    return 'valid';
+}
+
+export const validateNewVideo = (formValues) => {
+    window.formValues = formValues
+    if(!formValues.title) {
+        return requiredStr('Title');
+    }
+    if(!formValues.video_url) {
+        return requiredStr('Video URL');
+    }
+    if(!formValues.img_src) {
+        return requiredStr('Image source');
     }
 
     return 'valid';

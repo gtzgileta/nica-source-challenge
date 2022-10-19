@@ -4,6 +4,7 @@ export interface RegisterData {
     last_name: string;
     email: string;
     password: string;
+    role: "student" | "teacher";
 }
 
 export interface LoginData {
